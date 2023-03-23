@@ -1,0 +1,11 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity OR2x is
+	port (I0, I1: in STD_LOGIC;
+			O		: out STD_LOGIC);
+end OR2x;
+
+architecture DATAFLOW of OR2x is
+begin
+	O <= I0 or I1;
+end DATAFLOW;
