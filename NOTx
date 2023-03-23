@@ -1,0 +1,11 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity NOTx is
+	port(I : in STD_LOGIC;
+		  O : out STD_LOGIC);
+end NOTx;
+
+architecture DATAFLOW of NOTx is
+begin
+	0 <= not I;
+	end DATAFLOW;
