@@ -1,0 +1,28 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity Overflow is
+	port (A7, B7, DS7 : in STD_LOGIC;
+			V : out STD_LOGIC);
+end Overflow;
+
+architecture STRUCTURAL of Overflow is
+	component NOTx is
+		port (I : in STD_LOGIC;
+				O : out STD_LOGIC);
+	end component;
+	
+	component AND3x is
+		port (I0,I1, I2 : in STD_LOGIC;
+				O			 : out STD_LOGIC);
+	end component;
+	
+	signal N0, N1, N2, N3, N4 : STD_LOGIC;
+	
+	begin
+	C0: NOTx port map (I=>DS7, O=>N0);
+	C1: NOTx port map (I=>A7, O=>N1);
+	C2: NOTx port map (I=>B7, O=>N2);
+	C3: AND3x port map (I0=>A7, I1=>B7, I2=>N0, O=>N3);
+	C4: AND3x port map (I0=>N3, I1=>N4, O=>V);
+	
+	end STRUCTURAL
