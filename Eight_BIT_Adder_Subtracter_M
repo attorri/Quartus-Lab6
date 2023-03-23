@@ -1,0 +1,26 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity Eight_BIT_Adder_Subtracter_M is
+	port (A, B : in STD_LOGIC_VECTOR (7 downto 0);
+			B_Cin, Add_Sub : in STD_LOGIC;
+			D_S : out STD_LOGIC_VECTOR (7 downto 0);
+			B_Cout : out STD_LOGIC);
+end Eight_BIT_Adder_Subtracter_M;
+
+architecture STRUCTURAL of Eight_BIT_Adder_Substracter_M is
+	component Four_BIT_Adder_Subtracter is
+		port(A, B : in STD_LOGIC_VECTOR (3 downto 0);
+			  B_Cin, Sub_Add : in STD_LOGIC;
+			  D_S: out STD_LOGIC_VECTOR (3 downto 0);
+			  B_Cout : out STD_LOGIC);
+	end component;
+	
+	
+	signal N0 : STD_LOGIC;
+begin
+	C0: Four_BIT_Adder_Subtracter port map (A=>A (3 downto 0), B=>B (3 downto 0), B_Cin=>B_Cin,
+											Sub_Add=>Add_Sub, D_S=>D_S(3 downto 0), B_Cout=>N0);
+	C1: Four_BIT_Adder_Subtracter	port map (A=>A (7 downto 4) , B=>B (7 downto 4), B_Cin=>N0,
+											Sub_Add=>Add_Sub, D_S=>D_S (7 downto 4), B=>B (7 downto 4), B_Cin=>N0); 
+	
+	end STRUCTURAL;
