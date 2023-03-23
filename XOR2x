@@ -1,0 +1,11 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity XOR2x is
+	port (I0, I1 : in STD_LOGIC;
+			O		 : out STD_LOGIC);
+end XOR2x;
+
+architecture DATAFLOW of XOR2x is
+begin
+	O <= I0 xor I1 after 10 ns;
+end DATAFLOW;
