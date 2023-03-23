@@ -1,0 +1,38 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.all;
+use IEEE.NUMERIC_STD.all;
+
+entity Lab6b1s is
+	port (A,B		: in STD_LOGIC_VECTOR(7 downto 0);
+			Add_Sub  : in STD_LOGIC;
+			LEDR		: out STD_LOGIC_VECTOR(17 downto 0);
+			D_S		: out STD_LOGIC_VECTOR(7 downto 0);
+			B_Cout	: buffer STD_LOGIC
+	);
+end Lab6b1s'
+
+architecture behavioral of Lab6b1s is
+
+	signal B_N		: STD_LOGIC_VECTOR(7 downto 0);
+	signal B_Cin	: STD_LOGIC;
+	signal SS		: signed(8 downto 0);
+	signal tmp		: STD_LOGIC;
+	
+begin
+	LEDR(15 downto 8) <= A;
+	LEDR(7 downto 0) <= B;
+	LEDR(17) <= Add_Sub;
+	
+	B_N <= not B;
+	B_Cin <= B_Cout;
+	
+	SS <= signed('0'&A) + signed('0'&B) + signed('0'&B_Cin) when Add_Sub ='0'
+			else signed('0'&A) + signed('0'&B_N) +signed('0'&B_Cin);
+	D_S <= STD_LOGIC_VEFCTOR(SS(7 downto 0));
+	
+	temp <= STD_LOGIC(SS(7));
+	
+	LEDR(16) <= (A(7) and B(7) and (not tmp)) or ((not A(7)) and (not B(7)) and tmp) when Add_Sub ='0'
+					else (A(7) and B_N(7) and (not tmp)) or ((not A(7)) and tmp);
+		
+end behavioral
