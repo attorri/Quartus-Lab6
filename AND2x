@@ -1,0 +1,11 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity AND2x is
+	port (I0,I1: in STD_LOGIC;
+			O	  : out STD_LOGIC);
+end AND2x;
+
+architecture DATAFLOW of AND2x is
+begin
+	O <= and I1;
+end DATAFLOW;
