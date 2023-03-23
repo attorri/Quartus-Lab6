@@ -1,0 +1,33 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity Four_BIT_Adder_Subtracter is
+	port (A,B : in STD_LOGIC_VECTOR (3 downto 0);
+			B_Cin, Sub_Add : in STD_LOGIC;
+			D_S : out STD_LOGIC_VECTOR (3 downto 0);
+			B_Cout : out STD_LOGIC);
+end Four_BIT_Adder_Subtracter;
+
+architecture STRUCTURAL of Four_BIT_Adder_Subtracter is
+	component Full_Adder is
+		port (X,Y, Cin : in STD_LOGIC;
+				Sum, Cout : out STD_LOGIC);
+	end component;
+	
+	component XOR2x is
+		port (I0,I1 : in STD_LOGIC;
+				O 		: out STD_LOGIC);
+	end component;
+	
+		signal N0,N1,N2,N3 : STD_LOGIC;
+		signal M0, M1, M2 : STD_LOGIC;
+begin
+		CN0: XOR2x port map (I0=>B (0), I1=>Sub_Add, O =>N0);
+		CN1: XOR2x port map (I0=> B (1), I1=>Sub_Add, O =>N1);
+		CN2: XOR2x port map (I0=> B (2), I1=>Sub_Add, O =>N2);
+		CN3: XOR2x port map (I0=> B (3), I1=>Sub_Add, O =>N3) ;
+	
+	CM0:Full_Adder port map (X=>A (0), Y=>N0, Cin=>B_Cin, Sum=> D_S (0), Cout=>M0) ;
+	CM1:Full_Adder port map (X=>A (1), Y=>N1, Cin=>M0, Sum=>D_S (1), Cout=>M1);
+	CM2:Full_Adder port map (X=>A (2), Y=>N2, Cin=>M1, Sum=>D_S (2), Cout=>M2);
+	CM3:Full_Adder port map (X=>A (3), Y=>N3, Cin=>M2, Sum=>D_S (3), Cout=>B_Cout);
+end STRUCTURAL
