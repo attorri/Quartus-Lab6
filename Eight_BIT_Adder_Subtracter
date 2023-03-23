@@ -1,0 +1,36 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity Eight_BIT_Adder_subtracter is
+	port (A, B : in STD_LOGIC_VECTOR (7 downto 0);
+			B_Cin, Add_Sub : in STD_LOGIC;
+			LEDR : out STD_LOGIC_VECTOR (17 downto 0);
+			D_S : buffer STD_LOGIC_VECTOR (7 downto 0);
+			Overflow_d: out STD_LOGIC;
+			B_Cout : out STD_LOGIC);
+			
+end Eight_BIT_Adder_Subtracter;
+
+architecture STRUCTURAL of Eight_BIT_Adder_Subtracter is
+	component Eight_BIT_Adder_Subtracter_M is
+		port (A,B : in STD_LOGIC_VECTOR (7 downto 0);
+				B_Cin, Add_Sub : in STD_LOGIC;
+				D_S : out STD_LOGIC_VECTOR (7 downto 0);
+				B_Cout : out STD_LOGIC);
+	end component;
+	
+	component Overflow is
+		port (A7,B7,DS7 : in STD_LOGIC;
+				O			 : out STD_LOGIC);
+	end component;
+	
+	signal N0 : STD_LOGIC;
+begin
+	LEDR(15 downto 8) <= A;
+	LEDR(7 downto 0) <= B;
+	LEDR(17) <= Add_Sub;
+	
+	C0: Eight_BIT_Adder_Subtracter_M port map (A=>A (7 downto 0), B=>B (7 downto 0), B_Cin=>Add_Sub,
+															 Add_Sub=>Add_Sub, D_S=>D_S (7 downto 0), B_Cout=>B_Cout);
+	C1: XOR2x port map (I0=>Add_Sub, I1=>B (7), O=>N0);
+	C2: Overflow port map (A7=>A (7), B7=>N0, DS7=>D_S(7), V=>Overflow_d);
+end STRUCTURAL	
