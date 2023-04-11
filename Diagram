@@ -1,0 +1,43 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+entity Diagram is
+	port (A : in STD_LOGIC_VECTOR (7 downto 0);
+			B : in STD_LOGIC_VECTOR (7 downto 0);
+			Add_Sub : in STD_LOGIC;
+			LEDR : out STD_LOGIC_VECTOR (17 downto 0);
+			D_S : out STD_LOGIC_VECTOR (7 downto 0);
+			B_Cout : out STD_LOGIC);
+end Diagram;
+
+architecture STRUCTURAL of Diagram is
+component Eight_BIT_Adder_Subtracter_M  
+	port (A, B : in STD_LOGIC_VECTOR (7 downto 0);
+			B_Cin, Add_Sub : in STD_LOGIC;
+			D_S : out STD_LOGIC_VECTOR (7 downto 0);
+			B_Cout : out STD_LOGIC);
+end component;
+component Overflow 
+	port (A7, B7, DS7 : in STD_LOGIC;
+			V : out STD_LOGIC);
+end component;
+signal DS : STD_LOGIC_VECTOR (7 downto 0);
+signal B7 : std_logic;
+begin
+Eight_BIT_Adder_Subtracter_M_uut : Eight_BIT_Adder_Subtracter_M  
+	port map(A => A,
+		B => B,
+		B_Cin => Add_Sub,
+		Add_Sub => Add_Sub,
+		D_S => DS,
+		B_Cout => B_Cout);
+B7 <= Add_Sub xor B(7);
+Overflow_uut : Overflow 
+	port map(A7 => A(7), 
+		B7 => B7,
+		DS7 => DS(7),
+		V => LEDR(16));
+LEDR(7 downto 0) <= B;
+LEDR(15 downto 8) <= A;
+LEDR(17) <= Add_Sub;
+D_S <= DS;
+end STRUCTURAL;
