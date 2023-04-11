@@ -20,7 +20,12 @@ architecture STRUCTURAL of Eight_BIT_Adder_Subtracter is
 	
 	component Overflow is
 		port (A7,B7,DS7 : in STD_LOGIC;
-				O			 : out STD_LOGIC);
+				V			 : out STD_LOGIC);
+	end component;
+	
+	component XOR2x is
+		port (I0, I1 : in STD_LOGIC;
+				O : out STD_LOGIC);
 	end component;
 	
 	signal N0 : STD_LOGIC;
@@ -33,4 +38,4 @@ begin
 															 Add_Sub=>Add_Sub, D_S=>D_S (7 downto 0), B_Cout=>B_Cout);
 	C1: XOR2x port map (I0=>Add_Sub, I1=>B (7), O=>N0);
 	C2: Overflow port map (A7=>A (7), B7=>N0, DS7=>D_S(7), V=>Overflow_d);
-end STRUCTURAL	
+end STRUCTURAL;	
