@@ -30,4 +30,4 @@ begin
 	CM1:Full_Adder port map (X=>A (1), Y=>N1, Cin=>M0, Sum=>D_S (1), Cout=>M1);
 	CM2:Full_Adder port map (X=>A (2), Y=>N2, Cin=>M1, Sum=>D_S (2), Cout=>M2);
 	CM3:Full_Adder port map (X=>A (3), Y=>N3, Cin=>M2, Sum=>D_S (3), Cout=>B_Cout);
-end STRUCTURAL
+end STRUCTURAL;
