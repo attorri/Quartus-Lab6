@@ -7,5 +7,5 @@ end NOTx;
 
 architecture DATAFLOW of NOTx is
 begin
-	0 <= not I;
+	O <= not I;
 	end DATAFLOW;
