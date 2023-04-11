@@ -7,5 +7,5 @@ end AND2x;
 
 architecture DATAFLOW of AND2x is
 begin
-	O <= and I1;
+	O <= I0 and I1;
 end DATAFLOW;
