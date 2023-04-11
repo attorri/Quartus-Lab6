@@ -15,13 +15,17 @@ architecture STRUCTURAL of Full_Adder is
 		port (I0, I1 : in STD_LOGIC;
 				O : out STD_LOGIC);
 	 end component;
+	component XOR2x is
+		port (I0,I1: in STD_LOGIC;
+				O : out STD_LOGIC);
+	end component;
 	
 	signal N0,N1,N2 : STD_LOGIC;
 begin
-	C0: XOR2x port map (I0 => X, I1 => Y, O => N0);
-	C1: AND2x port map (I0 => X, I1 => Y, O => N1);
+	C0: XOR2x port map (I0 => X, I1 => Y,O => N0);
+	C1: AND2x port map (I0 => X, I1 => Y,O => N1);
 	C2: XOR2x port map (I0 => N0, I1 => Cin, O => Sum);
 	C3: AND2x port map (I0 => N0, I1 => Cin, O => N2);
 	C4: OR2x  port map (I0 => N2, I1 => N1, O => Cout);
-	
+		
 end STRUCTURAL;
