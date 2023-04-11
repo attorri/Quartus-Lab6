@@ -16,6 +16,11 @@ architecture STRUCTURAL of Overflow is
 				O			 : out STD_LOGIC);
 	end component;
 	
+	component Or2x is
+		port (I0, I1: in STD_LOGIC;
+				O		: out STD_LOGIC);
+	end component;
+	
 	signal N0, N1, N2, N3, N4 : STD_LOGIC;
 	
 	begin
@@ -23,6 +28,7 @@ architecture STRUCTURAL of Overflow is
 	C1: NOTx port map (I=>A7, O=>N1);
 	C2: NOTx port map (I=>B7, O=>N2);
 	C3: AND3x port map (I0=>A7, I1=>B7, I2=>N0, O=>N3);
-	C4: AND3x port map (I0=>N3, I1=>N4, O=>V);
+	c4: AND3x port map (I0=>N1, I1=>N2, I2=>DS7, O=>N4);
+	C5: Or2x port map (I0=>N3, I1=>N4, O=>V);
 	
-	end STRUCTURAL
+	end STRUCTURAL;
